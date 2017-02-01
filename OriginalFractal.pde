@@ -31,7 +31,7 @@ public void myFractal(int x, int y, int siz)
 public void FractalTwo(int x, int y, int siz)
 {
 	
-	rect(x,y,siz,siz);
+	rect(x,y,siz,siz,10);
 	if (siz < 10)
 	{
 		rect(x,y,siz,siz);
