@@ -1,6 +1,7 @@
+
 body {
-    background-color: url(" cool background.jpg");
-    color: rgb(0,0,0);
+    background-image: url('Space.jpg');
+    color: rgb(255,255,255);
     font-family: "Open Sans", sans-serif;
     text-align: center;
 }
@@ -12,10 +13,13 @@ body {
 }
 
 header {
-	
+
+
+  
 }
 
 footer {
-	font-style: italic;
-	font-size: 90%;
+  font-style: italic;
+  font-size: 90%;
 }
+
