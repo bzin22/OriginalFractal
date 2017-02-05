@@ -3,19 +3,25 @@
 // Julia Set derived from shell code of the Mandelbrot Set
 // Credit for the original Mandelbrot Shell goes to Daniel Shiffman on Github
 
+float theta = 0;
 public void setup()
 {  
   size(700, 700);
-  background(0);
+  colorMode(HSB, .8);
 }
 
 public void draw()
 {
     // It all starts with the width, try higher or lower values
-    float changeConstantA = map(mouseX, 0, width, -1,1);
-    float changeConstantB = map(mouseY, 0, height, -1, 1);
+    background(255);
 
-    float w = 4;
+    float changeConstantA = -0.4; //map(mouseX, 0, width, -1,1);
+    float changeConstantB = .6; //map(mouseY, 0, height, -1, 1);
+
+    theta += .0255;
+
+    frameRate(7);
+    float w = abs(sin(theta) *3);
     float h = (w * height) / width;
 
     // Start at negative half the width and height
@@ -65,11 +71,12 @@ public void draw()
         // We color each pixel based on how long it takes to get to infinity
         // If we never got there, let's pick the color black
         if (n == maxiterations) {
-          pixels[i+j*width] = color(0);
+          pixels[i+j*width] = color(0,153,153);
         } else {
           // Gosh, we could make fancy colors here if we wanted
           float norm = map(n, 0, maxiterations, 0, 1);
-          pixels[i+j*width] = color(map(sqrt(norm), 0, 1, 0, 255));
+          float hue = sqrt(float(n) / maxiterations);
+          pixels[i+j*width] = color(hue, 3, 1.8);
         }
         x += dx;
       }
@@ -77,5 +84,4 @@ public void draw()
     }
 
     updatePixels();
-    println(frameRate);
 }
