@@ -3,7 +3,7 @@
 // Julia Set derived from shell code of the Mandelbrot Set
 // Credit for the original Mandelbrot Shell goes to Daniel Shiffman on Github
 
-float theta = 0;
+float theta = 0; // changes as zoom increases
 public void setup()
 {  
   size(700, 700);
@@ -12,16 +12,15 @@ public void setup()
 
 public void draw()
 {
-    // It all starts with the width, try higher or lower values
     background(255);
 
-    float changeConstantA = -0.4; //map(mouseX, 0, width, -1,1);
-    float changeConstantB = .6; //map(mouseY, 0, height, -1, 1);
+    float changeConstantA = map(mouseX, 0, width, -1,1); //-0.8;
+    float changeConstantB = map(mouseY, 0, height, -1, 1); //.156;
 
     theta += .0255;
 
     frameRate(7);
-    float w = abs(sin(theta) *3);
+    float w = 4; //abs(sin(theta) *3);
     float h = (w * height) / width;
 
     // Start at negative half the width and height
@@ -46,20 +45,23 @@ public void draw()
 
     // Start y
     float y = ymin;
-    for (int j = 0; j < height; j++) {
+    for (int j = 0; j < height; j++) 
+    {
       // Start x
       float x = xmin;
-      for (int i = 0; i < width; i++) {
-
-        // Now we test, as we iterate z = z^2 + cm does z tend towards infinity?
+      for (int i = 0; i < width; i++) 
+      {
+        // test as we iterate z = z^2 + cm; does z tend towards infinity?
         float a = x;
         float b = y;
         int n = 0;
-        while (n < maxiterations) {
+        while (n < maxiterations) 
+        {
           float aa = a * a; // a^2
           float bb = b * b; // b^2
-          // Infinty in our finite world is simple, let's just consider it 16
-          if (dist(aa, bb, 0, 0) > 4.0) {
+          // inf goes to 16
+          if (dist(aa, bb, 0, 0) > 4.0) 
+          {
             break;  // Bail
           }
           float twoab = 2.0 * a * b; // 2ab
@@ -68,12 +70,14 @@ public void draw()
           n++;
         }
 
-        // We color each pixel based on how long it takes to get to infinity
-        // If we never got there, let's pick the color black
-        if (n == maxiterations) {
+        // color each pixel as it goes to inf
+        // no inf means color = black
+        if (n == maxiterations) 
+        {
           pixels[i+j*width] = color(0,153,153);
-        } else {
-          // Gosh, we could make fancy colors here if we wanted
+        } 
+        else 
+        {
           float norm = map(n, 0, maxiterations, 0, 1);
           float hue = sqrt(float(n) / maxiterations);
           pixels[i+j*width] = color(hue, 3, 1.8);
